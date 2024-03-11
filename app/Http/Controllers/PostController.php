@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostStoreRequest;
 use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Client\Response;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\PostStoreRequest;
 use GuzzleHttp\Exception\ClientException;
 
 class PostController extends Controller
@@ -15,7 +19,7 @@ class PostController extends Controller
         $this->postService = $postService;
     }
 
-    public function index()
+    public function index(): View|Response
     {   
         try {
 
@@ -30,10 +34,10 @@ class PostController extends Controller
         }        
     }
 
-    public function show($id)
+    public function show($id): ?View
     {   
         try {
-
+            
             $post = $this->postService->getPost($id);
 
             return view('show', compact('post'));
@@ -45,12 +49,12 @@ class PostController extends Controller
         }
     }
 
-    public function create()
+    public function create(): View
     {
         return view('create');
     }
 
-    public function store(PostStoreRequest $request)
+    public function store(PostStoreRequest $request): RedirectResponse|JsonResponse
     {
         try {
 
@@ -68,7 +72,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         try {
-
+            // dd(gettype($this->postService->destroyPost($id)));
             $this->postService->destroyPost($id);
             
             return redirect('/')->with('message', 'Post deleted successfully');

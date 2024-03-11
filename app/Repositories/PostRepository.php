@@ -16,7 +16,7 @@ class PostRepository implements PostRepositoryInterface
         $this->baseUrl = 'https://jsonplaceholder.typicode.com/posts';
     }
 
-    public function getPosts()
+    public function getPosts(): array
     {
         if (Cache::has('posts')) {
 
@@ -33,14 +33,14 @@ class PostRepository implements PostRepositoryInterface
         return $posts; 
     }
 
-    public function getPost($id)
+    public function getPost($id): array
     {
         $response = $this->client->get($this->baseUrl . '/' . $id);
         
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function storePost(array $data)
+    public function storePost(array $data) : array
     {
         $response = $this->client->post($this->baseUrl, [
             'json' => $data,
@@ -49,8 +49,8 @@ class PostRepository implements PostRepositoryInterface
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function destroyPost($id)
+    public function destroyPost($id): void
     {
-        $response = $this->client->delete($this->baseUrl . '/' . $id);
+        $this->client->delete($this->baseUrl . '/' . $id);
     }
 }

@@ -13,22 +13,22 @@ class PostService
         return $this->post = $post;
     }
 
-    public function getPosts()
+    public function getPosts(): array
     {
         return $this->post->getPosts(); 
     }
 
-    public function getPost($id)
+    public function getPost($id): array
     {
         return $this->post->getPost($id); 
     }
 
-    public function storePost($data)
+    public function storePost($data): array
     {
         return $this->post->storePost($data); 
     }
 
-    public function destroyPost($id)
+    public function destroyPost($id): ?array
     {
         return $this->post->destroyPost($id); 
     }
