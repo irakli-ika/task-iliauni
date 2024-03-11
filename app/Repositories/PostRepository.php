@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 
 class PostRepository implements PostRepositoryInterface
 {
@@ -15,12 +16,21 @@ class PostRepository implements PostRepositoryInterface
         $this->baseUrl = 'https://jsonplaceholder.typicode.com/posts';
     }
 
-
     public function getPosts()
     {
-        $response = $this->client->get($this->baseUrl);
+        if (Cache::has('posts')) {
 
-        return json_decode($response->getBody()->getContents(), true);
+            return Cache::get('posts');
+            
+        }
+
+        $response = $this->client->get($this->baseUrl);
+        
+        $posts = json_decode($response->getBody()->getContents(), true);
+
+        Cache::put('posts', $posts, 300);
+
+        return $posts; 
     }
 
     public function getPost($id)
