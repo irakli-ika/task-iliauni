@@ -51,6 +51,6 @@ class PostRepository implements PostRepositoryInterface
 
     public function destroyPost($id)
     {
-        $this->client->delete($this->baseUrl . '/' . $id);
+        $response = $this->client->delete($this->baseUrl . '/' . $id);
     }
 }
