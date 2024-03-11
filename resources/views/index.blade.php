@@ -25,13 +25,15 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $post['title'] }}</h5>
                         <p class="card-text">{{ $post['body'] }}</p>
-                        <a href="{{ route('post.show', $post['id'] ) }}" class="card-link">See more</a>
-                        <form action="{{ route('post.destroy', $post['id']) }}" method="post" onsubmit="return confirm('Are you sure?')">
-                            @csrf
-                            @method('DELETE')
+                        <div class="d-flex gap-4">
+                            <a href="{{ route('post.show', $post['id'] ) }}" class="card-link">See more</a>
+                            <form action="{{ route('post.destroy', $post['id']) }}" method="post" onsubmit="return confirm('Are you sure?')">
+                                @csrf
+                                @method('DELETE')
 
-                            <button type="submit" class="btn btn-danger">Danger</button>
-                        </form>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             @endforeach
