@@ -30,22 +30,17 @@ class PostRepository implements PostRepositoryInterface
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function createPost(array $data)
+    public function storePost(array $data)
     {
         $response = $this->client->post($this->baseUrl, [
             'json' => $data,
         ]);
-        
+
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    public function updatePost($id, array $data)
+    public function destroyPost($id)
     {
-        
-    }
-
-    public function deletePost($id)
-    {
-        
+        $this->client->delete($this->baseUrl . '/' . $id);
     }
 }

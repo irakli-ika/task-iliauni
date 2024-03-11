@@ -22,4 +22,14 @@ class PostService
     {
         return $this->post->getPost($id); 
     }
+
+    public function storePost($data)
+    {
+        return $this->post->storePost($data); 
+    }
+
+    public function destroyPost($id)
+    {
+        return $this->post->destroyPost($id); 
+    }
 }

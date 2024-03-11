@@ -11,14 +11,27 @@
         <title>Hello, world!</title>
     </head>
     <body>
-        <section class="container mx-auto row gap-4 justify-content-center">
+        <div class="container mx-auto mt-4 text-center">
+            @if(session('message'))
+                <p class="text-success h3">{{ session('message') }}</p>
+            @endif
+        </div>
+        <section class="container mx-auto row gap-4 pt-4 justify-content-center">
+            <div class="container">
+                <a href="{{ route('post.create') }}" class="btn btn-success">Create Post</a>
+            </div>
             @foreach ($posts as $post)
                 <div class="card mt-4" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">{{ $post['title'] }}</h5>
                         <p class="card-text">{{ $post['body'] }}</p>
                         <a href="{{ route('post.show', $post['id'] ) }}" class="card-link">See more</a>
-                        <a href="#" class="card-link">Delete</a>
+                        <form action="{{ route('post.destroy', $post['id']) }}" method="post" onsubmit="return confirm('Are you sure?')">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger">Danger</button>
+                        </form>
                     </div>
                 </div>
             @endforeach

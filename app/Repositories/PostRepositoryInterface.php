@@ -6,7 +6,6 @@ interface PostRepositoryInterface
 {
     public function getPosts();
     public function getPost($id);
-    public function createPost(array $data);
-    public function updatePost($id, array $data);
-    public function deletePost($id);
+    public function storePost(array $data);
+    public function destroyPost($id);
 }

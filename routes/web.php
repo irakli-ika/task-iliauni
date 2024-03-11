@@ -15,4 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PostController::class, 'index']);
-Route::get('/show/{id}', [PostController::class, 'show'])->name('post.show');
+
+Route::prefix('posts')->name('post.')->group(function() {
+
+    Route::get('/{id}', [PostController::class, 'show'])->name('show');
+    Route::get('/', [PostController::class, 'create'])->name('create');
+    Route::post('/', [PostController::class, 'store'])->name('store');
+    Route::delete('/{id}', [PostController::class, 'destroy'])->name('destroy');
+
+});
